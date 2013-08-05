@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Math_Tokenizer.TokenOperands;
+using RPNLib.TokenOperands;
 
-namespace Math_Tokenizer
+namespace RPNLib
 {
     public class RPNParser
     {
         public string Expression { get; set; }
 
-        private Dictionary<string, Func<double, double>> functions; 
+        private readonly Dictionary<string, Func<double, double>> functions;
 
         public RPNParser(string expression)
         {
@@ -49,17 +49,14 @@ namespace Math_Tokenizer
                 else if (token == ")")
                 {
                     // Until the token at the top of the stack is a left parenthesis, pop operators off the stack onto the output queue.
+                    // If the stack runs out without finding a left parenthesis, then there are mismatched parentheses. (handled below)
                     while (!(stack.Peek() is LeftParenthesis))
                     {
                         queue.Enqueue(stack.Pop());
                     }
                     stack.Pop(); // Pop the left parenthesis from the stack, but not onto the output queue.
 
-                    /* Not doing functions yet
-                        If the token at the top of the stack is a function token, pop it onto the output queue.
-                        If the stack runs out without finding a left parenthesis, then there are mismatched parentheses. (handled below)
-                    */
-
+                    // If the token at the top of the stack is a function token, pop it onto the output queue.
                     if (stack.Peek() is Function)
                     {
                         queue.Enqueue(stack.Pop());
@@ -90,6 +87,7 @@ namespace Math_Tokenizer
                 }
                 else
                 {
+                    // Not part of the algorithm
                     switch (token.ToLower())
                     {
                         default: throw new Exception("Invalid token");
@@ -103,15 +101,12 @@ namespace Math_Tokenizer
 
             while (stack.Count > 0)
             {
-                while (stack.Count > 0)
+                if (stack.Peek() is LeftParenthesis || stack.Peek() is RightParenthesis)
                 {
-                    if (stack.Peek() is LeftParenthesis || stack.Peek() is RightParenthesis)
-                    {
-                        throw new Exception("Unmatched parenthesis found");
-                    }
-
-                    queue.Enqueue(stack.Pop());
+                    throw new Exception("Unmatched parenthesis found");
                 }
+
+                queue.Enqueue(stack.Pop());
             }
 
             queue.ToList().ForEach(op => Console.Write(op.Token + " "));

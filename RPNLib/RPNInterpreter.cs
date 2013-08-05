@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
-using Math_Tokenizer.TokenOperands;
+using RPNLib.TokenOperands;
 
-namespace Math_Tokenizer
+namespace RPNLib
 {
     public class RPNInterpreter
     {
         public List<Operand> Tokens { get; private set; }
-        public Dictionary<string, Func<double, double>> Functions { get; private set; } 
+        private readonly Dictionary<string, Func<double, double>> functions;
 
         public RPNInterpreter(List<Operand> tokens, Dictionary<string, Func<double, double>> functions)
         {
             Tokens = tokens;
-            Functions = functions;
+            this.functions = functions;
         }
 
         public double Interpret()
@@ -27,7 +27,7 @@ namespace Math_Tokenizer
                 }
                 else if (token is Function)
                 {
-                    stack.Push(Functions[token.Token].Invoke(stack.Pop()));
+                    stack.Push(functions[token.Token].Invoke(stack.Pop()));
                 }
                 else
                 {

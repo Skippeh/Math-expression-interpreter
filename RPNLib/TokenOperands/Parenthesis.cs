@@ -1,4 +1,4 @@
-namespace Math_Tokenizer.TokenOperands
+namespace RPNLib.TokenOperands
 {
     public class LeftParenthesis : Operand
     {

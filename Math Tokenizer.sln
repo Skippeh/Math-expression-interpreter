@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Math Tokenizer", "Math Tokenizer\Math Tokenizer.csproj", "{7BFB6BC4-B31E-4CEB-81A1-FD417EFF625A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPNLib", "RPNLib\RPNLib.csproj", "{AB430ACE-018E-4F84-AC2D-5B7C4255A2B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{7BFB6BC4-B31E-4CEB-81A1-FD417EFF625A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BFB6BC4-B31E-4CEB-81A1-FD417EFF625A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BFB6BC4-B31E-4CEB-81A1-FD417EFF625A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB430ACE-018E-4F84-AC2D-5B7C4255A2B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB430ACE-018E-4F84-AC2D-5B7C4255A2B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB430ACE-018E-4F84-AC2D-5B7C4255A2B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB430ACE-018E-4F84-AC2D-5B7C4255A2B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
