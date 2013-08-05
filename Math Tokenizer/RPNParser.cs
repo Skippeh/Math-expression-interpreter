@@ -13,12 +13,21 @@ namespace Math_Tokenizer
     {
         public string Expression { get; set; }
 
+        private Dictionary<string, Func<double, double>> functions; 
+
         public RPNParser(string expression)
         {
             Expression = expression;
+            functions = new Dictionary<string, Func<double, double>>();
+
+            functions.Add("sin", Math.Sin);
+            functions.Add("cos", Math.Cos);
+            functions.Add("abs", Math.Abs);
+            functions.Add("sqrt", Math.Sqrt);
+            functions.Add("atan", Math.Atan);
         }
 
-        public RPNParser() { Expression = ""; }
+        public RPNParser() : this("") {}
 
         public double Calculate()
         {
@@ -50,6 +59,11 @@ namespace Math_Tokenizer
                         If the token at the top of the stack is a function token, pop it onto the output queue.
                         If the stack runs out without finding a left parenthesis, then there are mismatched parentheses. (handled below)
                     */
+
+                    if (stack.Peek() is Function)
+                    {
+                        queue.Enqueue(stack.Pop());
+                    }
                 }
                 else if (IsOperator(token))
                 {
@@ -70,6 +84,21 @@ namespace Math_Tokenizer
 
                     stack.Push(new Operator(token));
                 }
+                else if (IsFunction(token))
+                {
+                    stack.Push(new Function(token));
+                }
+                else
+                {
+                    switch (token.ToLower())
+                    {
+                        default: throw new Exception("Invalid token");
+                        case "pi":
+                        case "pie": // huehue
+                                queue.Enqueue(new Value(Math.PI.ToString()));
+                                break;
+                    }
+                }
             }
 
             while (stack.Count > 0)
@@ -85,7 +114,10 @@ namespace Math_Tokenizer
                 }
             }
 
-            var interpreter = new RPNInterpreter(queue.ToList());
+            queue.ToList().ForEach(op => Console.Write(op.Token + " "));
+            Console.WriteLine();
+
+            var interpreter = new RPNInterpreter(queue.ToList(), functions);
             return interpreter.Interpret();
         }
 
@@ -101,6 +133,11 @@ namespace Math_Tokenizer
                    token == "*" ||
                    token == "/" ||
                    token == "^";
+        }
+
+        private bool IsFunction(string token)
+        {
+            return functions.Any(func => func.Key.ToLower() == token.ToLower());
         }
 
         private bool IsNumber(string str)

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RPNInterpreter.cs" />
+    <Compile Include="TokenOperands\Function.cs" />
     <Compile Include="TokenOperands\Operator.cs" />
     <Compile Include="TokenOperands\Parenthesis.cs" />
     <Compile Include="RPNParser.cs" />
@@ -50,7 +51,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenOperands\Value.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="TokenOperands\Functions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

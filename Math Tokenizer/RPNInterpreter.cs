@@ -6,11 +6,13 @@ namespace Math_Tokenizer
 {
     public class RPNInterpreter
     {
-        public List<Operand> Tokens { get; private set; } 
+        public List<Operand> Tokens { get; private set; }
+        public Dictionary<string, Func<double, double>> Functions { get; private set; } 
 
-        public RPNInterpreter(List<Operand> tokens)
+        public RPNInterpreter(List<Operand> tokens, Dictionary<string, Func<double, double>> functions)
         {
             Tokens = tokens;
+            Functions = functions;
         }
 
         public double Interpret()
@@ -22,6 +24,10 @@ namespace Math_Tokenizer
                 if (token is Value)
                 {
                     stack.Push(double.Parse(token.Token));
+                }
+                else if (token is Function)
+                {
+                    stack.Push(Functions[token.Token].Invoke(stack.Pop()));
                 }
                 else
                 {
