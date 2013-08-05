@@ -16,6 +16,7 @@ namespace Math_Tokenizer
 
             Console.WriteLine("RPN parser (shunting-yard algorithm) and RPN interpreter written in C#.\n");
 
+            var parser = new RPNParser();
             while (true)
             {
                 try
@@ -26,13 +27,13 @@ namespace Math_Tokenizer
                     if (input == null || input.ToLower() == "exit")
                         return;
 
-                    var parser = new RPNParser(input);
-                    var value = parser.Calculate();
-                    Console.WriteLine(" " + value.ToString());
+                    parser.Expression = input;
+                    Console.WriteLine(" " + parser.Calculate());
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Invalid expression.");
+                    Console.WriteLine("Invalid expression. (" + ex.Message + ")");
+                    Console.WriteLine(ex);
                 }
 
                 Console.WriteLine();
