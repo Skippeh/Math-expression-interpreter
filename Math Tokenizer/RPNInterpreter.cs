@@ -36,7 +36,7 @@ namespace Math_Tokenizer
 
                         switch (token.Token)
                         {
-                            default: Console.WriteLine("Invalid RPN"); return 0;
+                            default: throw new Exception("Invalid RPN format");
                             case "+":
                                 {
                                     stack.Push(o1 + o2);
