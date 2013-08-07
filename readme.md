@@ -5,5 +5,5 @@ Learning resources:<br>
 >http://rosettacode.org/wiki/Parsing/RPN_calculator_algorithm#C.23
 
 Todo:<br>
->Support for functions.<br>
 >Do some refactoring.<br>
+>Support negative numbers.<br>
